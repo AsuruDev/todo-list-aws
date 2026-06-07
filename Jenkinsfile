@@ -140,21 +140,19 @@ pipeline {
     
                     git pull origin master
     
-                    git merge origin/develop --no-commit --no-ff
-    
-                    # Mantener SIEMPRE el Jenkinsfile de master
-    
-                    git checkout --ours Jenkinsfile
-    
+                    git merge origin/develop --no-commit --no-ff || true
+
+                    git checkout origin/master -- Jenkinsfile
+                    
                     git add Jenkinsfile
-    
-                    git commit -m "Promote develop to master"
-    
+                    
+                    git commit -m "Promote develop to master preserving master Jenkinsfile"
+                    
                     git push \
-    
-                      https://${GIT_USER}:${GIT_PASS}@github.com/AsuruDev/todo-list-aws.git \
-    
-                      master
+                    
+                    https://${GIT_USER}:${GIT_PASS}@github.com/AsuruDev/todo-list-aws.git \
+                    
+                    master
     
                 '''
                 }
