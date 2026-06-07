@@ -129,30 +129,25 @@ pipeline {
                 sh '''
     
                     set -e
-    
-                    git config user.name "jenkins"
-    
-                    git config user.email "jenkins@local"
-    
-                    git fetch origin
-    
-                    git checkout master
-    
-                    git pull origin master
-    
-                    git merge origin/develop --no-commit --no-ff || true
 
+                    git config user.name "jenkins"
+                    git config user.email "jenkins@local"
+                    
+                    git fetch origin
+                    
+                    git checkout master
+                    
+                    git pull origin master
+                    
+                    git merge origin/develop --no-commit --no-ff || true
+                    
                     git checkout origin/master -- Jenkinsfile
                     
                     git add Jenkinsfile
                     
-                    git commit -m "Promote develop to master preserving master Jenkinsfile"
+                    git commit -m "Promote develop to master preserving master Jenkinsfile" || true
                     
-                    git push \
-                    
-                    https://${GIT_USER}:${GIT_PASS}@github.com/AsuruDev/todo-list-aws.git \
-                    
-                    master
+                    git push https://${GIT_USER}:${GIT_PASS}@github.com/AsuruDev/todo-list-aws.git master
     
                 '''
                 }
